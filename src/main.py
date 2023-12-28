@@ -1,33 +1,26 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk
 from tkinter import Tk
 from tkinter import Scrollbar, Frame
 from tkinter import Text, filedialog
 root = Tk()
 root.title('LexNote')
-# root.iconbitmap('c:/gui/codemy.ico') #                          
+root.iconbitmap('assets/doc-icon.bmp')                           
 root.geometry("1200x660") 
-
 # Set Variable for open file name #
 global open_status_name           
 open_status_name = False           
-# Create new file function #
-
 #Create main frame #
 my_frame = Frame(root)
 my_frame.pack(pady=5)
-
 #create menu 
 my_menu = Menu(root)
 root.config(menu=my_menu)
-
 # Create scrollbar #
 text_scroll = Scrollbar(my_frame)
 text_scroll.pack(side=RIGHT, fill=Y)
 
 # Create Text Box #
-
 my_text = Text(my_frame, width=97, height=25, font=("Helvetica", 16),
     selectbackground="yellow",
     selectforeground="black",  
@@ -114,7 +107,7 @@ file_menu.add_command(label="Save As", command=save_as_file)
 file_menu.add_command(label="Exit")
 
 # Add Edit Menu #
-
+5
 edit_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="Edit", menu=edit_menu)
 edit_menu.add_command(label="Cut")

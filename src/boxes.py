@@ -3,7 +3,7 @@ from tkinter import *
 root = Tk()
 root.title("Entry Boxes")
 root.geometry("700x500")
-root.iconbitmap('c:/gui/codemy.ico')
+root.iconbitmap('assets/doc-icon.bmp')
 
 my_label = Label(root, text="Enter Something", font=("Helvetica", 24))
 my_entries = []
