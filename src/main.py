@@ -1,15 +1,16 @@
-import tkinter as tk
+import tkinter as Tk
 from tkinter import *
-from tkinter import Tk
-from tkinter import Scrollbar, Frame
-from tkinter import Text, filedialog
+from tkinter import Scrollbar, Frame, Text, filedialog, font
 root = Tk()
 root.title('LexNote')
 root.iconbitmap('assets/doc-icon.bmp')                           
 root.geometry("1200x660") 
-# Set Variable for open file name #
+# Set Variable for open file nam #
 global open_status_name           
-open_status_name = False           
+open_status_name = False
+
+global selected 
+selected = False
 #Create main frame #
 my_frame = Frame(root)
 my_frame.pack(pady=5)
@@ -90,9 +91,27 @@ def save_file():
     else:
         save_as_file()
         
-##############l############## 
+############################################## 
 
-###### Subsection: Edit Menu Functions ######
+###### Subsection: Edit Menu Functions #######
+def cut_text(e):
+    global selected 
+    if my_text.selection_get():
+        #Get selected from txtbox
+        selected = my_text.selection_get()
+        my_text.delete("sel.first", "sel.last")
+
+def copy_text(e):
+    global selected
+    if my_text.selection_get():
+        #Get selected from txtbox
+        selected = my_text.selection_get()
+
+def paste_text(e):
+    if selected:
+        position = my_text.index(INSERT)
+        my_text.insert(position, selected)
+        pass
 
 
 ###### Subsection: File Menus
@@ -107,7 +126,7 @@ file_menu.add_command(label="Save As", command=save_as_file)
 file_menu.add_command(label="Exit")
 
 # Add Edit Menu #
-5
+
 edit_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="Edit", menu=edit_menu)
 edit_menu.add_command(label="Cut")
