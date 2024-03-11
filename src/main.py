@@ -119,21 +119,21 @@ def paste_text(e):
 
 file_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="New", command=new_file)
-file_menu.add_command(label="Open", command=open_file)
-file_menu.add_command(label="Save", command=save_file)
-file_menu.add_command(label="Save As", command=save_as_file)
-file_menu.add_command(label="Exit")
+file_menu.add_command(label="New", command=new_file, accelerator="Ctrl+N")
+file_menu.add_command(label="Open", command=open_file, accelerator="Ctrl+O")
+file_menu.add_command(label="Save", command=save_file, accelerator="Ctrl-S")
+file_menu.add_command(label="Save As", command=save_as_file, accelerator="Ctrl+A")
+file_menu.add_command(label="Exit", command=root.quit)
 
 # Add Edit Menu #
 
 edit_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="Edit", menu=edit_menu)
-edit_menu.add_command(label="Cut")
-edit_menu.add_command(label="Copy")
-edit_menu.add_command(label="Paste")
+edit_menu.add_command(label="Cut", command=cut_text, accelerator="Ctrl+X")
+edit_menu.add_command(label="Copy", command=copy_text, accelerator="Ctrl+C")
+edit_menu.add_command(label="Paste", command=paste_text, accelerator="Ctrl+V")
 edit_menu.add_command(label="Undo", command=my_text.edit_undo, accelerator="Ctrl+Z")
-edit_menu.add_command(label="Redo")
+edit_menu.add_command(label="Redo", command=my_text.edit_redo, accelerator="Ctrl+R")
 
 # Add View menu # 
 
@@ -161,6 +161,16 @@ my_menu.add_command(label="Help", accelerator="Ctrl+H")
 status_bar = Label(root, text='Ready ' + '     ' + 'LexNote', anchor=E)
 status_bar.pack(fill=X, side=BOTTOM, ipady=5)
 
+#Edit Bindings
+root.bind('<Control-Key-n>', new_file)
+root.bind('<Control-Key-o>', open_file)
+root.bind('<Control-Key-s>', save_file)
+root.bind('<Control-Key-a>', save_as_file)
+
+root.bind('<Control-Key-c>', copy_text)
+root.bind('<Control-Key-v>', paste_text)
+root.bind('<Control-Key-z>', my_text.edit_undo)
+root.bind('<Control-Key-r>', my_text.edit_redo)
 
 #### MAIN LOOP ####
 root.mainloop() 
