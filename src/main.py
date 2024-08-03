@@ -92,26 +92,35 @@ def save_file():
         save_as_file()
         
 ############################################## 
-
 ###### Subsection: Edit Menu Functions #######
 def cut_text(e):
     global selected 
-    if my_text.selection_get():
-        #Get selected from txtbox
-        selected = my_text.selection_get()
-        my_text.delete("sel.first", "sel.last")
-
+    if e: 
+        selected = root.clipboard_get()
+    else: 
+        if my_text.selection_get():
+            selected = my_text.selection_get()
+            my_text.delete("sel.first", "sel.last")
+            root.clipboard_clear()
+            root.clipboard_append(selected)
 def copy_text(e):
     global selected
-    if my_text.selection_get():
-        #Get selected from txtbox
-        selected = my_text.selection_get()
-
+    if e: 
+        selected = root.clipboard_get()
+    else: 
+        if my_text.selection_get():
+            #Get selected from txtbox
+            selected = my_text.selection_get()
+            root.clipboard_clear()
 def paste_text(e):
-    if selected:
-        position = my_text.index(INSERT)
-        my_text.insert(position, selected)
-        pass
+
+    if e: 
+        selected = root.clipboard_get()
+    else:
+        if selected:
+            position = my_text.index(INSERT)
+            my_text.insert(position, selected)
+            pass
 
 
 ###### Subsection: File Menus
@@ -129,9 +138,9 @@ file_menu.add_command(label="Exit", command=root.quit)
 
 edit_menu = Menu(my_menu, tearoff=False)
 my_menu.add_cascade(label="Edit", menu=edit_menu)
-edit_menu.add_command(label="Cut", command=cut_text, accelerator="Ctrl+X")
-edit_menu.add_command(label="Copy", command=copy_text, accelerator="Ctrl+C")
-edit_menu.add_command(label="Paste", command=paste_text, accelerator="Ctrl+V")
+edit_menu.add_command(label="Cut", command=Lambda: cut_text(false), accelerator="Ctrl+X")
+edit_menu.add_command(label="Copy", command=Lambda: copy_text(false), accelerator="Ctrl+C")
+edit_menu.add_command(label="Paste", command=Lambda: paste_text(false), accelerator="Ctrl+V")
 edit_menu.add_command(label="Undo", command=my_text.edit_undo, accelerator="Ctrl+Z")
 edit_menu.add_command(label="Redo", command=my_text.edit_redo, accelerator="Ctrl+R")
 
